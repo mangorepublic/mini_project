@@ -14,25 +14,57 @@ class MonthlyFieldService:
         return timeDifference / 3600
     
     def collectingData(self):
-        try:
-            startTime = datetime.datetime.strptime(input("\nEnter start time (HH:MM): "), "%H:%M")
-            placements = int(input("Enter number of placements: "))
-            videos = int(input("Enter number of videos shown: "))
-            returnVisit = int(input("Enter number of return visit: "))
-            bibleStudies = int(input("Enter the number of bible studies conducted: "))
-            endTime = datetime.datetime.strptime(input("Enter end time (HH:MM): "), "%H:%M")
-            hoursSpent = self.hoursCalculation(startTime, endTime)
+        while True:
+            try:
+                startTime = datetime.datetime.strptime(input("\nEnter start time (HH:MM): "), "%H:%M")
+                break
+            except ValueError:
+                print("Invalid input! Please enter a valid time in HH:MM format.")
+        
+        while True:
+            try:
+                placements = int(input("Enter number of placements: "))
+                break
+            except ValueError:
+                print("Invalid input! Please enter a valid integer for placements.")
+        
+        while True:
+            try:
+                videos = int(input("Enter number of videos shown: "))
+                break
+            except ValueError:
+                print("Invalid input! Please enter a valid integer for videos.")
+        
+        while True:
+            try:
+                returnVisit = int(input("Enter number of return visit: "))
+                break
+            except ValueError:
+                print("Invalid input! Please enter a valid integer for return visits.")
+        
+        while True:
+            try:
+                bibleStudies = int(input("Enter the number of bible studies conducted: "))
+                break
+            except ValueError:
+                print("Invalid input! Please enter a valid integer for bible studies conducted")
+        
+        while True:
+            try: 
+                endTime = datetime.datetime.strptime(input("Enter end time (HH:MM): "), "%H:%M")
+                break
+            except ValueError:
+                print("Invalid input! Please enter a valid time in HH:MM format.")
 
-            self.totalPlacements += placements
-            self.totalHours += hoursSpent
-            self.totalVideos += videos
-            self.totalReturnVisit += returnVisit
-            self.totalBibleStudies += bibleStudies
+        hoursSpent = self.hoursCalculation(startTime, endTime)
 
-            print(f"Hours spent in field service: {hoursSpent:.2f} hours")
+        self.totalPlacements += placements
+        self.totalHours += hoursSpent
+        self.totalVideos += videos
+        self.totalReturnVisit += returnVisit
+        self.totalBibleStudies += bibleStudies
 
-        except ValueError:
-            print("Invalid input! Kindly enter valid numbers.")
+        print(f"Hours spent in field service: {hoursSpent:.2f} hours")
 
     def displayTotals(self):
         print("\nMonthly Totals")
